@@ -3,7 +3,7 @@ import os
 import random
 
 import numpy as np
-from tqdm import tqdm as ProgressDisplay
+from tqdm import tqdm
 
 from src.pattern import (
     get_pattern,
@@ -101,7 +101,7 @@ def simulate_games(
     # and keep track of the stats.
     scores = np.zeros(0, dtype=int)
     game_results = []
-    for answer in ProgressDisplay(
+    for answer in tqdm(
         test_set,
         leave=False,
         desc=" Trying all wordle answers",

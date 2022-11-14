@@ -1,5 +1,5 @@
 import numpy as np
-from tqdm import tqdm as ProgressDisplay
+from tqdm import tqdm
 
 from src.entropy import (
     entropy_of_distributions,
@@ -67,7 +67,7 @@ def get_expected_scores(
     sorted_indices = np.argsort(expected_scores)
     allowed_second_guesses = get_word_list()
     expected_scores += 1  # Push up the rest
-    for i in ProgressDisplay(
+    for i in tqdm(
         sorted_indices[:n_top_candidates_for_two_step],
         leave=False,
     ):
@@ -173,7 +173,7 @@ def brute_force_optimal_guess(
     top_choices = [all_words[i] for i in np.argsort(expected_scores)[:n_top_picks]]
     true_average_scores = []
     if display_progress:
-        iterable = ProgressDisplay(
+        iterable = tqdm(
             top_choices,
             desc=f"Possibilities: {len(possible_words)}",
             leave=False,
