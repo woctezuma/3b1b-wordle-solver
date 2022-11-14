@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.pattern import generate_pattern_matrix
+from src.pattern_utils import generate_pattern_matrix
 
 CHUNK_SIZE = 13000
 
