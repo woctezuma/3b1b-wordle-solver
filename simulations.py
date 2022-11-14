@@ -161,7 +161,7 @@ def simulate_games(
             if answer is not test_set[0]:
                 # Move cursor back up to the top of the message
                 n = len(message.split("\n")) + 1
-                print(("\033[F\033[K") * n)
+                print("\033[F\033[K" * n)
             else:
                 print("\r\033[K\n")
             print(message)
@@ -174,10 +174,10 @@ def simulate_games(
     )
 
     # Save results
-    for obj, file in [
+    for obj, file in (
         (final_result, results_file),
         (next_guess_map, next_guess_map_file),
-    ]:
+    ):
         if file:
             path = os.path.join(DATA_DIR, "simulation_results", file)
             with open(path, "w", encoding="utf8") as fp:

@@ -158,7 +158,7 @@ def get_possible_words(guess, pattern, word_list):
 
 
 def get_word_buckets(guess, possible_words):
-    buckets = [[] for x in range(3**5)]
+    buckets = [[] for _x in range(3**5)]
     hashes = get_pattern_matrix([guess], possible_words).flatten()
     for index, word in zip(hashes, possible_words):
         buckets[index].append(word)
