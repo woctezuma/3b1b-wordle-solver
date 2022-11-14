@@ -6,7 +6,7 @@ from src.pattern import get_pattern_matrix
 # Functions associated with entropy calculation
 
 
-def get_pattern_distributions(allowed_words, possible_words, weights):
+def get_pattern_distributions(allowed_words, possible_words, weights, game_name):
     """
     For each possible guess in allowed_words, this finds the probability
     distribution across all the 3^5 wordle patterns you could see, assuming
@@ -17,7 +17,7 @@ def get_pattern_distributions(allowed_words, possible_words, weights):
     that to bucket together words from possible_words which would produce
     the same pattern, adding together their corresponding probabilities.
     """
-    pattern_matrix = get_pattern_matrix(allowed_words, possible_words)
+    pattern_matrix = get_pattern_matrix(allowed_words, possible_words, game_name)
 
     n = len(allowed_words)
     distributions = np.zeros((n, 3**5))
@@ -32,26 +32,31 @@ def entropy_of_distributions(distributions):
     return entropy(distributions, base=2, axis=axis)
 
 
-def get_entropies(allowed_words, possible_words, weights):
+def get_entropies(allowed_words, possible_words, weights, game_name):
     if weights.sum() == 0:
         return np.zeros(len(allowed_words))
-    distributions = get_pattern_distributions(allowed_words, possible_words, weights)
+    distributions = get_pattern_distributions(
+        allowed_words,
+        possible_words,
+        weights,
+        game_name,
+    )
     return entropy_of_distributions(distributions)
 
 
-def get_bucket_sizes(allowed_words, possible_words):
+def get_bucket_sizes(allowed_words, possible_words, game_name):
     """
     Returns a (len(allowed_words), 243) shape array representing the size of
     word buckets associated with each guess in allowed_words
     """
     weights = np.ones(len(possible_words))
-    return get_pattern_distributions(allowed_words, possible_words, weights)
+    return get_pattern_distributions(allowed_words, possible_words, weights, game_name)
 
 
-def get_bucket_counts(allowed_words, possible_words):
+def get_bucket_counts(allowed_words, possible_words, game_name):
     """
     Returns the number of separate buckets that each guess in allowed_words
     would separate possible_words into
     """
-    bucket_sizes = get_bucket_sizes(allowed_words, possible_words)
+    bucket_sizes = get_bucket_sizes(allowed_words, possible_words, game_name)
     return (bucket_sizes > 0).sum(1)

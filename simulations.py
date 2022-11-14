@@ -6,18 +6,14 @@ import random
 import numpy as np
 from tqdm import tqdm
 
+from src.file import get_simulation_results_folder
 from src.pattern import (
     get_pattern,
     get_possible_words,
     pattern_to_int_list,
     patterns_to_string,
 )
-from src.prior import (
-    DATA_DIR,
-    get_frequency_based_priors,
-    get_true_wordle_prior,
-    get_word_list,
-)
+from src.prior import get_frequency_based_priors, get_true_wordle_prior, get_word_list
 from src.solver import brute_force_optimal_guess, optimal_guess
 
 GAME_NAMES = ["wordle", "dungleon"]
@@ -43,21 +39,22 @@ def simulate_games(
     next_guess_map_file=None,
     quiet=False,
 ):
-    all_words = get_word_list(short=False)
-    short_word_list = get_word_list(short=True)
+    all_words = get_word_list(game_name, short=False)
+    short_word_list = get_word_list(game_name, short=True)
 
     if first_guess is None:
         first_guess = optimal_guess(
             all_words,
             all_words,
             priors,
+            game_name=game_name,
             look_two_ahead=look_two_ahead,
             purely_maximize_information=purely_maximize_information,
             optimize_for_uniform_distribution=optimize_for_uniform_distribution,
         )
 
     if priors is None:
-        priors = get_frequency_based_priors()
+        priors = get_frequency_based_priors(game_name)
 
     if test_set is None:
         test_set = short_word_list
@@ -82,12 +79,13 @@ def simulate_games(
             choices = all_words
             if hard_mode:
                 for guess, pattern in zip(guesses, patterns):
-                    choices = get_possible_words(guess, pattern, choices)
+                    choices = get_possible_words(guess, pattern, choices, game_name)
             if brute_force_optimize:
                 next_guess_map[phash] = brute_force_optimal_guess(
                     choices,
                     possibilities,
                     priors,
+                    game_name=game_name,
                     n_top_picks=brute_force_depth,
                 )
             else:
@@ -95,6 +93,7 @@ def simulate_games(
                     choices,
                     possibilities,
                     priors,
+                    game_name,
                     look_two_ahead=look_two_ahead,
                     purely_maximize_information=purely_maximize_information,
                     optimize_for_uniform_distribution=optimize_for_uniform_distribution,
@@ -123,10 +122,10 @@ def simulate_games(
         score = 1
         guess = first_guess
         while guess != answer:
-            pattern = get_pattern(guess, answer)
+            pattern = get_pattern(guess, answer, game_name)
             guesses.append(guess)
             patterns.append(pattern)
-            possibilities = get_possible_words(guess, pattern, possibilities)
+            possibilities = get_possible_words(guess, pattern, possibilities, game_name)
             possibility_counts.append(len(possibilities))
             score += 1
             guess = get_next_guess(guesses, patterns, possibilities)
@@ -187,7 +186,7 @@ def simulate_games(
         (next_guess_map, next_guess_map_file),
     ):
         if file:
-            path = os.path.join(DATA_DIR, "simulation_results", file)
+            path = os.path.join(get_simulation_results_folder(game_name), file)
             with open(path, "w", encoding="utf8") as fp:
                 json.dump(obj, fp)
 
@@ -214,7 +213,7 @@ if __name__ == "__main__":
     results, decision_map = simulate_games(
         game_name=args.game_name,
         first_guess=args.first_guess,
-        priors=get_true_wordle_prior(),
+        priors=get_true_wordle_prior(args.game_name),
         optimize_for_uniform_distribution=True,
         # shuffle=True,
         # brute_force_optimize=True,
