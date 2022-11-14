@@ -1,9 +1,6 @@
 import os
 
-DATA_DIR = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    "data",
-)
+DATA_DIR = "data"
 SHORT_WORD_LIST_FILE = "possible_words.txt"
 LONG_WORD_LIST_FILE = "allowed_words.txt"
 WORD_FREQ_FILE = "wordle_words_freq_full.txt"
