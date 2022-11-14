@@ -1,5 +1,7 @@
 # 3b1b's Wordle solver
 
+[![Code Quality][codacy-image]][codacy]
+
 This repository contains Python code to solve Wordle puzzles with information theory.
 
 ## Requirements
@@ -34,6 +36,9 @@ Alternatively, run [`wordle_solver.ipynb`][colab-notebook]
 - [`woctezuma/Wordle-Bot`][wordle-bot-python-fork]: an extremely slow solver, mentioning some results.
 
 <!-- Definitions -->
+
+[codacy]: <https://www.codacy.com/gh/woctezuma/3b1b-wordle-solver/dashboard>
+[codacy-image]: <https://app.codacy.com/project/badge/Grade/ff156cc6b4604ba1a7527448480a118a>
 
 [python-download-url]: <https://www.python.org/downloads/>
 [colab-notebook]: <https://colab.research.google.com/github/woctezuma/3b1b-wordle-solver/blob/colab/wordle_solver.ipynb>
