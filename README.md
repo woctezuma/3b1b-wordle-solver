@@ -15,6 +15,12 @@ pip install -r requirements.txt
 
 ## Usage
 
+To print an exhaustive list of command-line arguments, run:
+
+```bash
+python simulations.py --help
+```
+
 Choose the game with `--game-name`:
 
 ```bash
