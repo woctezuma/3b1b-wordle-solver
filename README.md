@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-To compute the optimal first guess, choose the game with `--game-name`:
+Choose the game with `--game-name`:
 
 ```bash
 python simulations.py --game-name wordle
