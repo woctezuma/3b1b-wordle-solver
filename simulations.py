@@ -101,6 +101,8 @@ def simulate_games(
     # and keep track of the stats.
     scores = np.zeros(0, dtype=int)
     game_results = []
+    score_dist = []
+    total_guesses = 0
     for answer in tqdm(
         test_set,
         leave=False,
@@ -127,7 +129,9 @@ def simulate_games(
 
         # Accumulate stats
         scores = np.append(scores, [score])
-        score_dist = [int((scores == i).sum()) for i in range(1, scores.max() + 1)]
+        score_dist = [
+            int((scores == i).sum()) for i in range(1, scores.max(initial=0) + 1)
+        ]
         total_guesses = scores.sum()
         average = scores.mean()
         seen.add(answer)
