@@ -48,15 +48,15 @@ def get_expected_scores(
 ):
     # Currently entropy of distribution
     weights = get_weights(possible_words, priors)
-    H0 = entropy_of_distributions(weights)
-    H1s = get_entropies(allowed_words, possible_words, weights)
+    h0 = entropy_of_distributions(weights)
+    h1s = get_entropies(allowed_words, possible_words, weights)
 
     word_to_weight = dict(zip(possible_words, weights))
     probs = np.array([word_to_weight.get(w, 0) for w in allowed_words])
     # If this guess is the true answer, score is 1. Otherwise, it's 1 plus
     # the expected number of guesses it will take after getting the corresponding
     # amount of information.
-    expected_scores = probs + (1 - probs) * (1 + entropy_to_expected_score(H0 - H1s))
+    expected_scores = probs + (1 - probs) * (1 + entropy_to_expected_score(h0 - h1s))
 
     if not look_two_ahead:
         return expected_scores
@@ -72,14 +72,14 @@ def get_expected_scores(
         leave=False,
     ):
         guess = allowed_words[i]
-        H1 = H1s[i]
+        h1 = h1s[i]
         dist = get_pattern_distributions([guess], possible_words, weights)[0]
         buckets = get_word_buckets(guess, possible_words)
         second_guesses = [
             optimal_guess(allowed_second_guesses, bucket, priors, look_two_ahead=False)
             for bucket in buckets
         ]
-        H2s = [
+        h2s = [
             get_entropies([guess2], bucket, get_weights(bucket, priors))[0]
             for guess2, bucket in zip(second_guesses, buckets)
         ]
@@ -102,8 +102,8 @@ def get_expected_scores(
                     + sum(
                         p
                         * (1 - word_to_weight.get(g2, 0))
-                        * entropy_to_expected_score(H0 - H1 - H2)
-                        for p, g2, H2 in zip(dist, second_guesses, H2s)
+                        * entropy_to_expected_score(h0 - h1 - H2)
+                        for p, g2, H2 in zip(dist, second_guesses, h2s)
                     )
                 ),
             ),
@@ -118,13 +118,13 @@ def get_score_lower_bounds(allowed_words, possible_words):
     possible score for each word in allowed_words
     """
     bucket_counts = get_bucket_counts(allowed_words, possible_words)
-    N = len(possible_words)
+    n = len(possible_words)
     # Probabilities of getting it in 1
-    p1s = np.array([w in possible_words for w in allowed_words]) / N
+    p1s = np.array([w in possible_words for w in allowed_words]) / n
     # Probabilities of getting it in 2
-    p2s = bucket_counts / N - p1s
+    p2s = bucket_counts / n - p1s
     # Otherwise, assume it's gotten in 3 (which is optimistic)
-    p3s = 1 - bucket_counts / N
+    p3s = 1 - bucket_counts / n
     return p1s + 2 * p2s + 3 * p3s
 
 
