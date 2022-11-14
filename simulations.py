@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import random
@@ -19,10 +20,13 @@ from src.prior import (
 )
 from src.solver import brute_force_optimal_guess, optimal_guess
 
+GAME_NAMES = ["wordle", "dungleon"]
+
 # Run simulated wordle games
 
 
 def simulate_games(
+    game_name,
     first_guess=None,
     priors=None,
     look_two_ahead=False,
@@ -191,8 +195,25 @@ def simulate_games(
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--game-name",
+        type=str,
+        choices=GAME_NAMES,
+        default="wordle",
+        help="Game name",
+    )
+    parser.add_argument(
+        "--first-guess",
+        type=str,
+        default=None,
+        help="Pre-computed first guess",
+    )
+    args = parser.parse_args()
+
     results, decision_map = simulate_games(
-        first_guess=None,
+        game_name=args.game_name,
+        first_guess=args.first_guess,
         priors=get_true_wordle_prior(),
         optimize_for_uniform_distribution=True,
         # shuffle=True,
