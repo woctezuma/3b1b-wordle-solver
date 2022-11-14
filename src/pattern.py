@@ -4,6 +4,7 @@ import os
 
 import numpy as np
 
+from src.block import generate_full_pattern_matrix_in_blocks
 from src.file import get_pattern_matrix_fname
 from src.prior import get_word_list
 
@@ -93,7 +94,7 @@ def generate_pattern_matrix(words1, words2):
 
 def generate_full_pattern_matrix(game_name):
     words = get_word_list(game_name)
-    pattern_matrix = generate_pattern_matrix(words, words)
+    pattern_matrix = generate_full_pattern_matrix_in_blocks(words)
     # Save to file
     np.save(get_pattern_matrix_fname(game_name), pattern_matrix)
     return pattern_matrix
