@@ -28,6 +28,10 @@ python simulations.py --game-name dungleon
 Alternatively, run [`wordle_solver.ipynb`][colab-notebook]
 [![Open In Colab][colab-badge]][colab-notebook]
 
+## Results
+
+Results are shown [on the Wiki][wiki-results].
+
 ## References
 
 - 3Blue1Brown, [*Solving Wordle using information theory*][youtube-video], posted on Youtube on February 6, 2022,
@@ -43,6 +47,7 @@ Alternatively, run [`wordle_solver.ipynb`][colab-notebook]
 [python-download-url]: <https://www.python.org/downloads/>
 [colab-notebook]: <https://colab.research.google.com/github/woctezuma/3b1b-wordle-solver/blob/colab/wordle_solver.ipynb>
 [colab-badge]: <https://colab.research.google.com/assets/colab-badge.svg>
+[wiki-results]: <https://github.com/woctezuma/3b1b-wordle-solver/wiki>
 
 [youtube-video]: <https://www.youtube.com/watch?v=v68zYyaEmEA>
 [youtube-supplementary-code]: <https://github.com/3b1b/videos/tree/master/_2022/wordle>
