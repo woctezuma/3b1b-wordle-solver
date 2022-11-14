@@ -211,40 +211,34 @@ if __name__ == "__main__":
     parser.add_argument(
         "--max-info",
         dest="purely_maximize_information",
-        type=bool,
         action="store_true",
         help="Purely maximize information",
     )
     parser.add_argument(
         "--flat-dist",
         dest="optimize_for_uniform_distribution",
-        type=bool,
         action="store_true",
         help="Optimize for uniform distribution",
     )
     parser.add_argument(
         "--look-ahead",
         dest="look_two_ahead",
-        type=bool,
         action="store_true",
         help="Look two ahead",
     )
     parser.add_argument(
         "--shuffle",
-        type=bool,
         action="store_true",
         help="Shuffle the test set",
     )
     parser.add_argument(
         "--brute-force",
         dest="brute_force_optimize",
-        type=bool,
         action="store_true",
         help="Perform brute-force optimization",
     )
     parser.add_argument(
         "--hard-mode",
-        type=bool,
         action="store_true",
         help="Play the hard mode",
     )
