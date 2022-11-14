@@ -140,8 +140,8 @@ def optimal_guess(
         if len(possible_words) == 1:
             return possible_words[0]
         weights = get_weights(possible_words, priors)
-        ents = get_entropies(allowed_words, possible_words, weights)
-        return allowed_words[np.argmax(ents)]
+        entropies = get_entropies(allowed_words, possible_words, weights)
+        return allowed_words[np.argmax(entropies)]
 
     # Just experimenting here...
     if optimize_for_uniform_distribution:

@@ -188,7 +188,7 @@ def simulate_games(
 
 if __name__ == "__main__":
     results, decision_map = simulate_games(
-        first_guess="salet",
+        first_guess=None,
         priors=get_true_wordle_prior(),
         optimize_for_uniform_distribution=True,
         # shuffle=True,

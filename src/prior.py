@@ -10,7 +10,7 @@ DATA_DIR = os.path.join(
 )
 SHORT_WORD_LIST_FILE = os.path.join(DATA_DIR, "possible_words.txt")
 LONG_WORD_LIST_FILE = os.path.join(DATA_DIR, "allowed_words.txt")
-WORD_FREQ_FILE = os.path.join(DATA_DIR, "wordle_words_freqs_full.txt")
+WORD_FREQ_FILE = os.path.join(DATA_DIR, "wordle_words_freq_full.txt")
 WORD_FREQ_MAP_FILE = os.path.join(DATA_DIR, "freq_map.json")
 
 
@@ -36,8 +36,8 @@ def get_word_frequencies(regenerate=False):
         for line in fp.readlines():
             pieces = line.split(" ")
             word = pieces[0]
-            freqs = [float(piece.strip()) for piece in pieces[1:]]
-            freq_map[word] = np.mean(freqs[-5:])
+            freq = [float(piece.strip()) for piece in pieces[1:]]
+            freq_map[word] = np.mean(freq[-5:])
     with open(WORD_FREQ_MAP_FILE, "w", encoding="utf8") as fp:
         json.dump(freq_map, fp)
     return freq_map
@@ -54,8 +54,8 @@ def get_frequency_based_priors(n_common=3000, width_under_sigmoid=10):
     """
     freq_map = get_word_frequencies()
     words = np.array(list(freq_map.keys()))
-    freqs = np.array([freq_map[w] for w in words])
-    arg_sort = freqs.argsort()
+    freq = np.array([freq_map[w] for w in words])
+    arg_sort = freq.argsort()
     sorted_words = words[arg_sort]
 
     # We want to imagine taking this sorted list, and putting it on a number
