@@ -208,14 +208,56 @@ if __name__ == "__main__":
         default=None,
         help="Pre-computed first guess",
     )
+    parser.add_argument(
+        "--max-info",
+        dest="purely_maximize_information",
+        type=bool,
+        action="store_true",
+        help="Purely maximize information",
+    )
+    parser.add_argument(
+        "--flat-dist",
+        dest="optimize_for_uniform_distribution",
+        type=bool,
+        action="store_true",
+        help="Optimize for uniform distribution",
+    )
+    parser.add_argument(
+        "--look-ahead",
+        dest="look_two_ahead",
+        type=bool,
+        action="store_true",
+        help="Look two ahead",
+    )
+    parser.add_argument(
+        "--shuffle",
+        type=bool,
+        action="store_true",
+        help="Shuffle the test set",
+    )
+    parser.add_argument(
+        "--brute-force",
+        dest="brute_force_optimize",
+        type=bool,
+        action="store_true",
+        help="Perform brute-force optimization",
+    )
+    parser.add_argument(
+        "--hard-mode",
+        type=bool,
+        action="store_true",
+        help="Play the hard mode",
+    )
     args = parser.parse_args()
 
     results, decision_map = simulate_games(
         game_name=args.game_name,
         first_guess=args.first_guess,
         priors=get_true_wordle_prior(args.game_name),
-        optimize_for_uniform_distribution=True,
-        # shuffle=True,
-        # brute_force_optimize=True,
-        # hard_mode=True,
+        purely_maximize_information=args.purely_maximize_information,
+        optimize_for_uniform_distribution=args.optimize_for_uniform_distribution,
+        look_two_ahead=args.look_two_ahead,
+        shuffle=args.shuffle,
+        brute_force_optimize=args.brute_force_optimize,
+        hard_mode=args.hard_mode,
     )
