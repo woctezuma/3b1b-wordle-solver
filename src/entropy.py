@@ -9,7 +9,7 @@ from src.pattern import get_pattern_matrix
 def get_pattern_distributions(allowed_words, possible_words, weights):
     """
     For each possible guess in allowed_words, this finds the probability
-    distribution across all of the 3^5 wordle patterns you could see, assuming
+    distribution across all the 3^5 wordle patterns you could see, assuming
     the possible answers are in possible_words with associated probabilities
     in weights.
 
@@ -41,7 +41,7 @@ def get_entropies(allowed_words, possible_words, weights):
 
 def get_bucket_sizes(allowed_words, possible_words):
     """
-    Returns a (len(allowed_words), 243) shape array reprenting the size of
+    Returns a (len(allowed_words), 243) shape array representing the size of
     word buckets associated with each guess in allowed_words
     """
     weights = np.ones(len(possible_words))

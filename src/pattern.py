@@ -32,8 +32,8 @@ def generate_pattern_matrix(words1, words2):
 
     This function computes the pairwise patterns between two lists
     of words, returning the result as a grid of hash values. Since
-    this can be time-consuming, many operations that can be are vectorized
-    (perhaps at the expense of easier readibility), and the the result
+    this can be time-consuming, many operations that can be vectorized
+    (perhaps at the expense of easier readability), and the result
     is saved to file so that this only needs to be evaluated once, and
     all remaining pattern matching is a lookup.
     """

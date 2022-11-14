@@ -46,7 +46,7 @@ def get_expected_scores(
     look_two_ahead=False,
     n_top_candidates_for_two_step=25,
 ):
-    # Currenty entropy of distribution
+    # Currently entropy of distribution
     weights = get_weights(possible_words, priors)
     H0 = entropy_of_distributions(weights)
     H1s = get_entropies(allowed_words, possible_words, weights)
@@ -114,7 +114,7 @@ def get_expected_scores(
 def get_score_lower_bounds(allowed_words, possible_words):
     """
     Assuming a uniform distribution on how likely each element
-    of possible_words is, this gives the a lower boudn on the
+    of possible_words is, this gives a lower bound on the
     possible score for each word in allowed_words
     """
     bucket_counts = get_bucket_counts(allowed_words, possible_words)
@@ -123,7 +123,7 @@ def get_score_lower_bounds(allowed_words, possible_words):
     p1s = np.array([w in possible_words for w in allowed_words]) / N
     # Probabilities of getting it in 2
     p2s = bucket_counts / N - p1s
-    # Otherwise, assume it's gotten in 3 (which is optimistics)
+    # Otherwise, assume it's gotten in 3 (which is optimistic)
     p3s = 1 - bucket_counts / N
     return p1s + 2 * p2s + 3 * p3s
 
@@ -195,7 +195,7 @@ def brute_force_optimal_guess(
                 )
                 # Make recursive? If so, we'd want to keep track of
                 # the next_guess map and pass it down in the recursive
-                # subcalls
+                # sub-calls
                 guess = optimal_guess(
                     all_words,
                     possibilities,
