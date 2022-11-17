@@ -56,7 +56,7 @@ def simulate_games(
     if priors is None:
         priors = get_frequency_based_priors(game_name)
 
-    if test_set is None:
+    if test_set is None or test_set[0] is None:
         test_set = short_word_list
 
     if shuffle:
@@ -209,6 +209,12 @@ if __name__ == "__main__":
         help="Pre-computed first guess",
     )
     parser.add_argument(
+        "--test-answer",
+        type=str,
+        default=None,
+        help="Solution with which to test the solver",
+    )
+    parser.add_argument(
         "--max-info",
         dest="purely_maximize_information",
         action="store_true",
@@ -247,6 +253,7 @@ if __name__ == "__main__":
     results, decision_map = simulate_games(
         game_name=args.game_name,
         first_guess=args.first_guess,
+        test_set=[args.test_answer],
         priors=get_true_wordle_prior(args.game_name),
         purely_maximize_information=args.purely_maximize_information,
         optimize_for_uniform_distribution=args.optimize_for_uniform_distribution,
