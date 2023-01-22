@@ -140,13 +140,13 @@ def simulate_games(
         seen.add(answer)
 
         game_results.append(
-            dict(
-                score=int(score),
-                answer=answer,
-                guesses=guesses,
-                patterns=list(map(int, patterns)),
-                reductions=possibility_counts,
-            ),
+            {
+                "score": int(score),
+                "answer": answer,
+                "guesses": guesses,
+                "patterns": list(map(int, patterns)),
+                "reductions": possibility_counts,
+            },
         )
         # Print outcome
         if not quiet:
@@ -173,12 +173,12 @@ def simulate_games(
                 print("\r\033[K\n")
             print(message)
 
-    final_result = dict(
-        score_distribution=score_dist,
-        total_guesses=int(total_guesses),
-        average_score=float(scores.mean()),
-        game_results=game_results,
-    )
+    final_result = {
+        "score_distribution": score_dist,
+        "total_guesses": int(total_guesses),
+        "average_score": float(scores.mean()),
+        "game_results": game_results,
+    }
 
     # Save results
     for obj, file in (
