@@ -67,7 +67,7 @@ def get_frequency_based_priors(game_name, n_common=3000, width_under_sigmoid=10)
     c = x_width * (-0.5 + n_common / len(words))
     xs = np.linspace(c - x_width / 2, c + x_width / 2, len(words))
     priors = {}
-    for word, x in zip(sorted_words, xs):
+    for word, x in zip(sorted_words, xs, strict=True):
         priors[word] = sigmoid(x)
     return priors
 

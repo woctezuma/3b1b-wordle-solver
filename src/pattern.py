@@ -40,7 +40,7 @@ def get_pattern_matrix(words1, words2, game_name):
             generate_full_pattern_matrix(game_name)
         PATTERN_GRID_DATA["grid"] = np.load(pattern_matrix_fname)
         PATTERN_GRID_DATA["words_to_index"] = dict(
-            zip(get_word_list(game_name), itertools.count()),
+            zip(get_word_list(game_name), itertools.count(), strict=True),
         )
 
     full_grid = PATTERN_GRID_DATA["grid"]
@@ -85,6 +85,6 @@ def get_possible_words(guess, pattern, word_list, game_name):
 def get_word_buckets(guess, possible_words, game_name):
     buckets = [[] for _x in range(3**5)]
     hashes = get_pattern_matrix([guess], possible_words, game_name).flatten()
-    for index, word in zip(hashes, possible_words):
+    for index, word in zip(hashes, possible_words, strict=True):
         buckets[index].append(word)
     return buckets

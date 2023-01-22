@@ -71,14 +71,14 @@ def simulate_games(
     def get_next_guess(guesses, patterns, possibilities):
         phash = "".join(
             str(g) + "".join(map(str, pattern_to_int_list(p)))
-            for g, p in zip(guesses, patterns)
+            for g, p in zip(guesses, patterns, strict=True)
         )
         if second_guess_map is not None and len(patterns) == 1:
             next_guess_map[phash] = second_guess_map[patterns[0]]
         if phash not in next_guess_map:
             choices = all_words
             if hard_mode:
-                for guess, pattern in zip(guesses, patterns):
+                for guess, pattern in zip(guesses, patterns, strict=True):
                     choices = get_possible_words(guess, pattern, choices, game_name)
             if brute_force_optimize:
                 next_guess_map[phash] = brute_force_optimal_guess(

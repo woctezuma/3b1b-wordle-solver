@@ -52,7 +52,7 @@ def get_expected_scores(
     h0 = entropy_of_distributions(weights)
     h1s = get_entropies(allowed_words, possible_words, weights, game_name)
 
-    word_to_weight = dict(zip(possible_words, weights))
+    word_to_weight = dict(zip(possible_words, weights, strict=True))
     probs = np.array([word_to_weight.get(w, 0) for w in allowed_words])
     # If this guess is the true answer, score is 1. Otherwise, it's 1 plus
     # the expected number of guesses it will take after getting the corresponding
@@ -88,7 +88,7 @@ def get_expected_scores(
         ]
         h2s = [
             get_entropies([guess2], bucket, get_weights(bucket, priors), game_name)[0]
-            for guess2, bucket in zip(second_guesses, buckets)
+            for guess2, bucket in zip(second_guesses, buckets, strict=True)
         ]
 
         prob = word_to_weight.get(guess, 0)
@@ -100,7 +100,8 @@ def get_expected_scores(
                 2
                 * (1 - prob)
                 * sum(
-                    p * word_to_weight.get(g2, 0) for p, g2 in zip(dist, second_guesses)
+                    p * word_to_weight.get(g2, 0)
+                    for p, g2 in zip(dist, second_guesses, strict=True)
                 ),
                 # 2 plus expected score two steps from now
                 (1 - prob)
@@ -110,7 +111,7 @@ def get_expected_scores(
                         p
                         * (1 - word_to_weight.get(g2, 0))
                         * entropy_to_expected_score(h0 - h1 - H2)
-                        for p, g2, H2 in zip(dist, second_guesses, h2s)
+                        for p, g2, H2 in zip(dist, second_guesses, h2s, strict=True)
                     )
                 ),
             ),
