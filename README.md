@@ -6,7 +6,7 @@ This repository contains Python code to solve Wordle puzzles with information th
 
 ## Requirements
 
-- Install the latest version of [Python 3.X][python-download-url].
+- Install the latest version of [Python 3.X][python-download-url] (at least version 3.10).
 - Install the required packages:
 
 ```bash
