@@ -40,7 +40,7 @@ def get_pattern_matrix(words1, words2, game_name):
             generate_full_pattern_matrix(game_name)
         PATTERN_GRID_DATA["grid"] = np.load(pattern_matrix_fname)
         PATTERN_GRID_DATA["words_to_index"] = dict(
-            zip(get_word_list(game_name), itertools.count(), strict=True),
+            zip(get_word_list(game_name), itertools.count(), strict=False),
         )
 
     full_grid = PATTERN_GRID_DATA["grid"]
