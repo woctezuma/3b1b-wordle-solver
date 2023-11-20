@@ -1,7 +1,7 @@
 import argparse
 import json
-import os
 import random
+from pathlib import Path
 
 import numpy as np
 from tqdm import tqdm
@@ -186,8 +186,8 @@ def simulate_games(
         (next_guess_map, next_guess_map_file),
     ):
         if file:
-            path = os.path.join(get_simulation_results_folder(game_name), file)
-            with open(path, "w", encoding="utf8") as fp:
+            path = Path(get_simulation_results_folder(game_name)) / file
+            with Path(path).open("w", encoding="utf8") as fp:
                 json.dump(obj, fp)
 
     return final_result, next_guess_map

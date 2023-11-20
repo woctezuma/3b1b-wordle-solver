@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 DATA_DIR = "data"
 SHORT_WORD_LIST_FILE = "possible_words.txt"
@@ -10,11 +10,11 @@ SIMULATION_DIR = "simulation_results"
 
 
 def get_data_dir(game_name):
-    return os.path.join(DATA_DIR, game_name)
+    return Path(DATA_DIR) / game_name
 
 
 def get_data_fname(game_name, file):
-    return os.path.join(get_data_dir(game_name), file)
+    return Path(get_data_dir(game_name)) / file
 
 
 def get_short_word_list_fname(game_name):

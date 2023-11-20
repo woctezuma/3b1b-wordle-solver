@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 
 import numpy as np
 from scipy.special import expit as sigmoid
@@ -21,26 +21,26 @@ def get_word_list(game_name, short=False):
         if short
         else get_long_word_list_fname(game_name)
     )
-    with open(file, encoding="utf8") as fp:
+    with Path(file).open(encoding="utf8") as fp:
         result.extend([word.strip() for word in fp.readlines()])
     return result
 
 
 def get_word_frequencies(game_name, regenerate=False):
     word_freq_map_fname = get_word_freq_map_fname(game_name)
-    if os.path.exists(word_freq_map_fname) or regenerate:
-        with open(word_freq_map_fname, encoding="utf8") as fp:
+    if Path(word_freq_map_fname).exists or regenerate:
+        with Path(word_freq_map_fname).open(encoding="utf8") as fp:
             result = json.load(fp)
         return result
     # Otherwise, regenerate
     freq_map = {}
-    with open(get_word_freq_fname(game_name), encoding="utf8") as fp:
+    with Path(get_word_freq_fname(game_name)).open(encoding="utf8") as fp:
         for line in fp.readlines():
             pieces = line.split(" ")
             word = pieces[0]
             freq = [float(piece.strip()) for piece in pieces[1:]]
             freq_map[word] = np.mean(freq[-5:])
-    with open(word_freq_map_fname, "w", encoding="utf8") as fp:
+    with Path(word_freq_map_fname).open("w", encoding="utf8") as fp:
         json.dump(freq_map, fp)
     return freq_map
 

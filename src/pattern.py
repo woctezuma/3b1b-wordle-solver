@@ -1,6 +1,6 @@
 import itertools
 import logging
-import os
+from pathlib import Path
 
 import numpy as np
 
@@ -27,7 +27,7 @@ def generate_full_pattern_matrix(game_name):
 def get_pattern_matrix(words1, words2, game_name):
     pattern_matrix_fname = get_pattern_matrix_fname(game_name)
     if not PATTERN_GRID_DATA:
-        if not os.path.exists(pattern_matrix_fname):
+        if not Path(pattern_matrix_fname).exists:
             logging.info(
                 "Generating pattern matrix. This takes a minute, but\nthe result will be saved to file so that it only\nneeds to be computed once.",
             )
