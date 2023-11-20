@@ -29,13 +29,7 @@ def get_pattern_matrix(words1, words2, game_name):
     if not PATTERN_GRID_DATA:
         if not os.path.exists(pattern_matrix_fname):
             logging.info(
-                "\n".join(
-                    [
-                        "Generating pattern matrix. This takes a minute, but",
-                        "the result will be saved to file so that it only",
-                        "needs to be computed once.",
-                    ],
-                ),
+                "Generating pattern matrix. This takes a minute, but\nthe result will be saved to file so that it only\nneeds to be computed once.",
             )
             generate_full_pattern_matrix(game_name)
         PATTERN_GRID_DATA["grid"] = np.load(pattern_matrix_fname)
