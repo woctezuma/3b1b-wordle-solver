@@ -1,6 +1,7 @@
 import itertools
 import logging
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -10,7 +11,7 @@ from src.pattern_utils import EXACT, MISPLACED, MISS, generate_pattern_matrix
 from src.prior import get_word_list
 
 # To store the large grid of patterns at run time
-PATTERN_GRID_DATA = {}
+PATTERN_GRID_DATA: dict[str, Any] = {}
 
 
 # Generating color patterns between strings, etc.

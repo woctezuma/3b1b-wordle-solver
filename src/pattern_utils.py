@@ -75,6 +75,4 @@ def generate_pattern_matrix(words1, words2):
     # Rather than representing a color pattern as a lists of integers,
     # store it as a single integer, whose ternary representations corresponds
     # to that list of integers.
-    pattern_matrix = np.dot(full_pattern_matrix, (3 ** np.arange(nl)).astype(np.uint8))
-
-    return pattern_matrix
+    return np.dot(full_pattern_matrix, (3 ** np.arange(nl)).astype(np.uint8))
