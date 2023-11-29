@@ -28,7 +28,7 @@ def get_word_list(game_name, short=False):
 
 def get_word_frequencies(game_name, regenerate=False):
     word_freq_map_fname = get_word_freq_map_fname(game_name)
-    if Path(word_freq_map_fname).exists or regenerate:
+    if Path(word_freq_map_fname).exists() or regenerate:
         with Path(word_freq_map_fname).open(encoding="utf8") as fp:
             return json.load(fp)
     # Otherwise, regenerate
