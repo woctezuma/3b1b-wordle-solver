@@ -23,6 +23,8 @@ def generate_full_pattern_matrix_in_blocks(words, length=CHUNK_SIZE):
 
             row = np.hstack((row, block)) if row is not None else block
 
-        block_matrix = np.vstack((block_matrix, row)) if block_matrix is not None else row
+        block_matrix = (
+            np.vstack((block_matrix, row)) if block_matrix is not None else row
+        )
 
     return block_matrix
