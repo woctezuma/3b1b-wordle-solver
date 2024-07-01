@@ -22,7 +22,7 @@ def get_word_list(game_name, short=False):
         else get_long_word_list_fname(game_name)
     )
     with Path(file).open(encoding="utf8") as fp:
-        result.extend([word.strip() for word in fp.readlines()])
+        result.extend([word.strip() for word in fp])
     return result
 
 
@@ -34,7 +34,7 @@ def get_word_frequencies(game_name, regenerate=False):
     # Otherwise, regenerate
     freq_map = {}
     with Path(get_word_freq_fname(game_name)).open(encoding="utf8") as fp:
-        for line in fp.readlines():
+        for line in fp:
             pieces = line.split(" ")
             word = pieces[0]
             freq = [float(piece.strip()) for piece in pieces[1:]]
